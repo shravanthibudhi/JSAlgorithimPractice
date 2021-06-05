@@ -105,3 +105,70 @@ function findMax(numbers) {
 console.log(findMax([5,2,9,8,7,3,13]))
 console.log(findMax([5,8,9,8,7,3]))
 */
+
+// Sort the list in decending order given the list of movies and their ratings
+
+function sortBestRatingsFirst(numbers) {
+
+    //find max
+    for (let j = 0; j < numbers.length - 1; j++) {
+        
+        max_num = numbers[j];
+        max_location = j;
+
+        for (let i = j; i < numbers.length; i++) {
+            if (numbers[i] > max_num) {
+                // Know max and its index 
+                max_num = numbers[i]
+                max_location = i
+            }
+        }
+
+        // swap the first and the last
+        numbers[max_location]  = numbers[j] // --> Replacing the last number with the first
+        numbers[j] = max_num // --> Replacing the first number with the current Max 
+    }
+
+    return numbers
+}
+/*
+console.log(sortBestRatingsFirst ([5,8,2,9,3,10]))
+*/
+
+// Using a helper function
+function findMaxHelper(numbers, start) {
+    let maximum = numbers[start];
+    let max_location = start;
+
+    for (let i = start; i < numbers.length; i++) {
+        if (numbers[i] > maximum) {
+            maximum = numbers[i]
+            max_location = i
+        }
+    }
+    return {max_number: maximum, max_index: max_location}
+}
+
+/*
+console.log(findMaxHelper([5,2,9,3,7], 3))
+*/
+
+function sortBestWithHelper(numbers) {
+    // Run as many times as there are items
+    for (let j = 0; j < numbers.length - 1; j++) {
+        
+        // find max number and max location starting from j
+        max = findMaxHelper(numbers, j)
+        max_num = max['max_number']
+        max_location = max['max_index']
+
+        // swap the first and the max item in an array
+        numbers[max_location]  = numbers[j] // --> Replacing the last number with the first
+        numbers[j] = max_num // --> Replacing the first number with the current Max 
+    }
+
+    return numbers
+}
+/*
+console.log(sortBestWithHelper([5,8,2,9,3,10]))
+*/
